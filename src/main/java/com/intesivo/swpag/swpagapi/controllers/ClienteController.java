@@ -1,5 +1,6 @@
 package com.intesivo.swpag.swpagapi.controllers;
 
+import com.intesivo.swpag.swpagapi.domain.exception.NegocioException;
 import com.intesivo.swpag.swpagapi.domain.model.Cliente;
 import com.intesivo.swpag.swpagapi.domain.repositoy.ClienteRepository;
 import com.intesivo.swpag.swpagapi.domain.service.CadastroClienteService;
@@ -73,10 +74,12 @@ public class ClienteController {
         cadastroClienteService.excluir(clienteId);
         return ResponseEntity.noContent().build();
     }
+    @ExceptionHandler(NegocioException.class)
+    public ResponseEntity<String> capturar(NegocioException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
 
-
-
-    /* Endpoint para retornar a lista de clientes inicial
+   /* Endpoint para retornar a lista de clientes inicial
     @GetMapping("/clientes1")
     public String getClientes1() {
         return "clientes1";
