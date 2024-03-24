@@ -21,7 +21,7 @@ public class ClienteController {
 
     }
 
-    /* Endpoint para retornar a lista de clientes
+    /* Endpoint para retornar a lista de clientes inicial
     @GetMapping("/clientes1")
     public String getClientes1() {
         return "clientes1";
