@@ -25,7 +25,7 @@ public class Cliente {
     private String email;
     @EqualsAndHashCode.Include
     private String telefone;
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Collection<Endereco> endereco;
 
     public Cliente() {
