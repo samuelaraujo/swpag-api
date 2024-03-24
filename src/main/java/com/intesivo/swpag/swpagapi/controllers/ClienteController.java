@@ -16,9 +16,12 @@ import java.util.List;
 @RestController
 public class ClienteController {
 
-    @Autowired
+
     private ClienteRepositoy clienteRepositoy;
 
+    public ClienteController(ClienteRepositoy clienteRepositoy) {
+        this.clienteRepositoy = clienteRepositoy;
+    }
 
     // Endpoint para retornar a lista de clientes
     @GetMapping("/clientes")
