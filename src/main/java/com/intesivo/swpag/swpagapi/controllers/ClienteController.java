@@ -2,6 +2,7 @@ package com.intesivo.swpag.swpagapi.controllers;
 
 import com.intesivo.swpag.swpagapi.domain.model.Cliente;
 import com.intesivo.swpag.swpagapi.domain.repositoy.ClienteRepository;
+import com.intesivo.swpag.swpagapi.domain.service.CadastroClienteService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +15,11 @@ import java.util.List;
 @RestController
 public class ClienteController {
 
-
+    private final CadastroClienteService cadastroClienteService;
     private final ClienteRepository clienteRepository;
 
-    public ClienteController(ClienteRepository clienteRepositoy) {
+    public ClienteController(CadastroClienteService cadastroClienteService, ClienteRepository clienteRepositoy) {
+        this.cadastroClienteService = cadastroClienteService;
         this.clienteRepository = clienteRepositoy;
     }
 
@@ -48,7 +50,7 @@ public class ClienteController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Cliente adicionar(@Valid @RequestBody Cliente cliente){
-      return clienteRepository.save(cliente);
+      return cadastroClienteService.salvar(cliente);
     }
 
     // Endpoint para retornar adicinar cliente
@@ -59,7 +61,7 @@ public class ClienteController {
             return ResponseEntity.notFound().build();
         }
         cliente.setId(clienteId);
-        return ResponseEntity.ok(clienteRepository.save(cliente));
+        return ResponseEntity.ok(cadastroClienteService.salvar(cliente));
     }
 
     // Endpoint para retornar adicinar cliente
@@ -68,7 +70,7 @@ public class ClienteController {
         if (!clienteRepository.existsById(clienteId)) {
             return ResponseEntity.notFound().build();
         }
-        clienteRepository.deleteById(clienteId);
+        cadastroClienteService.excluir(clienteId);
         return ResponseEntity.noContent().build();
     }
 

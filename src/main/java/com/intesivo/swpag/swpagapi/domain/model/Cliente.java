@@ -9,22 +9,20 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Collection;
+import java.util.Objects;
 
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "Cliente")
 public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
     @Column(name = "id")
     private Long id;
     @NotBlank
     @Size(max = 255)
-    @EqualsAndHashCode.Include
     private String nome;
     private String cpf;
     @NotBlank
@@ -32,7 +30,6 @@ public class Cliente {
     @Email
     private String email;
     @NotBlank
-    @EqualsAndHashCode.Include
     private String telefone;
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Collection<Endereco> endereco;
@@ -58,6 +55,18 @@ public class Cliente {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cliente cliente)) return false;
+        return Objects.equals(getId(), cliente.getId()) && Objects.equals(getNome(), cliente.getNome()) && Objects.equals(getCpf(), cliente.getCpf()) && Objects.equals(getEmail(), cliente.getEmail()) && Objects.equals(getTelefone(), cliente.getTelefone()) && Objects.equals(getEndereco(), cliente.getEndereco());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getNome(), getCpf(), getEmail(), getTelefone(), getEndereco());
+    }
+
+    @Override
     public String toString() {
         return "Cliente{" +
                 "id=" + id +
@@ -67,4 +76,5 @@ public class Cliente {
                 ", telefone='" + telefone + '\'' +
                 '}';
     }
+
 }
