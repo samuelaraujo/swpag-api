@@ -2,6 +2,7 @@ package com.intesivo.swpag.swpagapi.controllers;
 
 import com.intesivo.swpag.swpagapi.domain.model.Cliente;
 import com.intesivo.swpag.swpagapi.domain.repositoy.ClienteRepository;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,13 +47,14 @@ public class ClienteController {
     // Endpoint para retornar adicinar cliente
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Cliente adicionar(@RequestBody Cliente cliente){
+    public Cliente adicionar(@Valid @RequestBody Cliente cliente){
       return clienteRepository.save(cliente);
     }
 
     // Endpoint para retornar adicinar cliente
     @PutMapping("/{clienteId}")
-    public ResponseEntity<Cliente> atualizar(@PathVariable Long clienteId, @RequestBody Cliente cliente){
+    public ResponseEntity<Cliente> atualizar(@PathVariable Long clienteId,
+                                             @Valid @RequestBody Cliente cliente){
         if (!clienteRepository.existsById(clienteId)) {
             return ResponseEntity.notFound().build();
         }

@@ -1,6 +1,9 @@
 package com.intesivo.swpag.swpagapi.domain.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,10 +22,16 @@ public class Cliente {
     @EqualsAndHashCode.Include
     @Column(name = "id")
     private Long id;
+    @NotBlank
+    @Size(max = 255)
     @EqualsAndHashCode.Include
     private String nome;
     private String cpf;
+    @NotBlank
+    @Size(max = 255)
+    @Email
     private String email;
+    @NotBlank
     @EqualsAndHashCode.Include
     private String telefone;
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
