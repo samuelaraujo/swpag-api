@@ -14,7 +14,6 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
-@Table(name = "Cliente")
 public class Cliente {
 
     @Id
@@ -31,8 +30,9 @@ public class Cliente {
     private String email;
     @NotBlank
     private String telefone;
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany
     private Collection<Endereco> endereco;
+
 
     public Cliente() {
     }

@@ -1,17 +1,15 @@
 package com.intesivo.swpag.swpagapi.domain.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.mapping.ToOne;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "Endereco")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Endereco {
 
     @Id
@@ -22,8 +20,8 @@ public class Endereco {
     private String numero;
     private String cidade;
     private String cep;
-    @ManyToOne
-    @JoinColumn(name = "cliente_id")
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Cliente cliente;
 
 
